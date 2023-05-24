@@ -55,7 +55,57 @@ void add_car() {
     cout<<"************************************"<<endl;
     
 }
+//function to delete a car from directory
+void delete_car() {
+    if (directory.count == 0) {
+        cout << "Directory is empty. You Can not delete a car." << endl;
+        return;
+    }
 
+    int car_id;
+    cout << "Enter a car ID to delete: ";
+    cin >> car_id;
+
+    int foundIndex = -1;
+    for (int i = 0; i < directory.count; i++) {
+        if (directory.entries[i].ID == car_id) {
+            foundIndex = i;
+            break;
+        }
+    }
+
+    if (foundIndex == -1) {
+        cout << "Car not found in the directory." << endl;
+    } else {
+        for (int i = foundIndex; i < directory.count - 1; i++) {
+            directory.entries[i] = directory.entries[i + 1];
+        }
+        directory.count--;
+
+        cout << "Car deleted successfully." << endl;
+    }
+}
+
+void list_cars() {
+    if (directory.count == 0) {
+        cout << "Car directory is empty." << endl;
+        return;
+    }
+
+    cout << "Car Directory list:" << endl;
+     cout<<"********************************************"<<endl;
+    for (int i = 0; i < directory.count; i++) {
+        cout << "Car ID: " << directory.entries[i].ID << endl;
+        cout << "Owner: " << directory.entries[i].owner_name << " " << directory.entries[i].owner_surname << endl;
+        cout << "Model: " << directory.entries[i].model << endl;
+        cout << "Registration Date: " << directory.entries[i].reg_date.day << "/"
+             << directory.entries[i].reg_date.month << "/" << directory.entries[i].reg_date.year << endl;
+        cout << "Next Service Date: " << directory.entries[i].service_date.day << "/"
+             << directory.entries[i].service_date.month << "/" << directory.entries[i].service_date.year << endl;
+        cout << "Phone Number: " << directory.entries[i].phone_no << endl;
+        cout << endl;
+    }
+}
 int main(){
 	
 
@@ -90,10 +140,10 @@ int main(){
                 add_car();
                 break;
             case 2:
-//                delete_car();
+                delete_car();
                 break;
             case 3:
-//                list_ars();
+                list_cars();
                 break;
             case 4:
                 char search_choice;
@@ -107,7 +157,7 @@ int main(){
 				}
 //                    search_car_by_name();
                 else
-                    cout << "Invalid search type." << endl;
+                    cout << "Invalid search type.Try again" << endl;
                 break;
             case 5:
 //                update_car_info();
@@ -119,7 +169,7 @@ int main(){
 //                sort_cars_by_name();
                 break;
             case 8:
-                cout << "Exiting program..." << endl;
+                cout << "Quit the program." << endl;
                 break;
             default:
                 cout << "Invalid choice. Please enter a valid menu option." << endl;
