@@ -1,5 +1,5 @@
 #include<iostream>
-
+#include <cstring>
 using namespace std;
 
 struct date {
@@ -85,6 +85,75 @@ void delete_car() {
         cout << "Car deleted successfully." << endl;
     }
 }
+//function to search for a car by car id
+void search_car_by_id() {
+    if (directory.count == 0) {
+        cout << "Directory is empty. Cannot search for a car." << endl;
+        return;
+    }
+
+    int carID;
+    cout << "Enter car ID to search: ";
+    cin >> carID;
+
+    bool found = false;
+    for (int i = 0; i < directory.count; i++) {
+        if (directory.entries[i].ID == carID) {
+            cout << "Car found:" << endl;
+              cout<<"********************************************"<<endl;
+            cout << "Car ID: " << directory.entries[i].ID << endl;
+            cout << "Owner: " << directory.entries[i].owner_name << " " << directory.entries[i].owner_surname << endl;
+            cout << "Model: " << directory.entries[i].model << endl;
+            cout << "Registration Date: " << directory.entries[i].reg_date.day << "/"
+                 << directory.entries[i].reg_date.month << "/" << directory.entries[i].reg_date.year << endl;
+            cout << "Next Service Date: " << directory.entries[i].service_date.day << "/"
+                 << directory.entries[i].service_date.month << "/" << directory.entries[i].service_date.year << endl;
+            cout << "Phone Number: " << directory.entries[i].phone_no << endl;
+            cout << endl;
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        cout << "Car not found in the directory." << endl;
+    }
+}
+//function to search for a car by owner name.
+void search_car_by_owner_name() {
+    if (directory.count == 0) {
+        cout << "Directory is empty. Cannot search for a car." << endl;
+        return;
+    }
+
+    char ownerName[20];
+    cout << "Enter owner's name to search: ";
+    cin >> ownerName;
+
+    bool found = false;
+    for (int i = 0; i < directory.count; i++) {
+        if (strcmp(directory.entries[i].owner_name, ownerName) == 0) {
+            cout << "Car found:" << endl;
+              cout<<"********************************************"<<endl;
+            cout << "Car ID: " << directory.entries[i].ID << endl;
+            cout << "Owner: " << directory.entries[i].owner_name << " " << directory.entries[i].owner_surname << endl;
+            cout << "Model: " << directory.entries[i].model << endl;
+            cout << "Registration Date: " << directory.entries[i].reg_date.day << "/"
+                 << directory.entries[i].reg_date.month << "/" << directory.entries[i].reg_date.year << endl;
+            cout << "Next Service Date: " << directory.entries[i].service_date.day << "/"
+                 << directory.entries[i].service_date.month << "/" << directory.entries[i].service_date.year << endl;
+            cout << "Phone Number: " << directory.entries[i].phone_no << endl;
+            cout << endl;
+            found = true;
+        }
+    }
+
+    if (!found) {
+        cout << "No cars found for the given owner's name." << endl;
+    }
+}
+
+
 
 void list_cars() {
     if (directory.count == 0) {
@@ -150,12 +219,14 @@ int main(){
                 cout << "Enter search type (A or B): ";
                 cin >> search_choice;
                 if (search_choice == 'A'){
+                	 search_car_by_id();
 				}
-//                    search_car_by_id();
+                   
                 else if (search_choice == 'B')
                 {
+                	 search_car_by_owner_name();
 				}
-//                    search_car_by_name();
+                  
                 else
                     cout << "Invalid search type.Try again" << endl;
                 break;
