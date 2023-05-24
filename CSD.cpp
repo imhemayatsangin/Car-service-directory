@@ -153,6 +153,45 @@ void search_car_by_owner_name() {
     }
 }
 
+ // we are using bubble sort for these 2 sorting functions.
+void sort_cars_by_id() {
+    if (directory.count == 0) {
+        cout << "Directory is empty. Cannot sort cars." << endl;
+        return;
+    }
+
+    for (int i = 0; i < directory.count - 1; i++) {
+        for (int j = 0; j < directory.count - i - 1; j++) {
+            if (directory.entries[j].ID > directory.entries[j + 1].ID) {
+                car temp = directory.entries[j];
+                directory.entries[j] = directory.entries[j + 1];
+                directory.entries[j + 1] = temp;
+            }
+        }
+    }
+
+    cout << "Cars sorted by ID in ascending order." << endl;
+}
+
+void sort_cars_by_name() {
+    if (directory.count == 0) {
+        cout << "Directory is empty. Cannot sort the cars." << endl;
+        return;
+    }
+
+    for (int i = 0; i < directory.count - 1; i++) {
+        for (int j = 0; j < directory.count - i - 1; j++) {
+            if (strcmp(directory.entries[j].owner_name, directory.entries[j + 1].owner_name) > 0) {
+                car temp = directory.entries[j];
+                directory.entries[j] = directory.entries[j + 1];
+                directory.entries[j + 1] = temp;
+            }
+        }
+    }
+
+    cout << "Cars sorted by owner's name in ascending order." << endl;
+}
+
 
 // function to list all cars and display.
 void list_cars() {
@@ -277,10 +316,10 @@ int main(){
                update_car_info();
                 break;
             case 6:
-//                sort_cars_by_Id();
+                sort_cars_by_Id();
                 break;
             case 7:
-//                sort_cars_by_name();
+               sort_cars_by_name();
                 break;
             case 8:
                 cout << "Quit the program." << endl;
