@@ -154,7 +154,7 @@ void search_car_by_owner_name() {
 }
 
 
-
+// function to list all cars and display.
 void list_cars() {
     if (directory.count == 0) {
         cout << "Car directory is empty." << endl;
@@ -173,6 +173,49 @@ void list_cars() {
              << directory.entries[i].service_date.month << "/" << directory.entries[i].service_date.year << endl;
         cout << "Phone Number: " << directory.entries[i].phone_no << endl;
         cout << endl;
+    }
+}
+
+//functin for updating car info.
+void update_car_info() {
+    if (directory.count == 0) {
+        cout << "Directory is empty. Cannot update car information." << endl;
+        return;
+    }
+
+    int car_id;
+    cout << "Enter car ID to update information: ";
+    cin >> car_id;
+
+    bool id_found = false;
+    for (int i = 0; i < directory.count; i++) {
+        if (directory.entries[i].ID == car_id) {
+            cout << "Enter new owner's name: ";
+            cin >> directory.entries[i].owner_name;
+
+            cout << "Enter new owner's surname: ";
+            cin >> directory.entries[i].owner_surname;
+
+            cout << "Enter new car model: ";
+            cin >> directory.entries[i].model;
+
+            cout << "Enter new registration date (day month year): ";
+            cin >> directory.entries[i].reg_date.day >> directory.entries[i].reg_date.month >> directory.entries[i].reg_date.year;
+
+            cout << "Enter new next service date (day month year): ";
+            cin >> directory.entries[i].service_date.day >> directory.entries[i].service_date.month >> directory.entries[i].service_date.year;
+
+            cout << "Enter new owner's phone number: ";
+            cin >> directory.entries[i].phone_no;
+
+            cout << "Car information updated successfully." << endl;
+            id_found = true;
+            break;
+        }
+    }
+
+    if (!id_found) {
+        cout << "Car not found in the directory." << endl;
     }
 }
 int main(){
@@ -231,7 +274,7 @@ int main(){
                     cout << "Invalid search type.Try again" << endl;
                 break;
             case 5:
-//                update_car_info();
+               update_car_info();
                 break;
             case 6:
 //                sort_cars_by_Id();
